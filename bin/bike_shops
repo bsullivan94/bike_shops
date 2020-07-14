@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require relative "../lib/bike_shops"
+
+BikeShops::CLI.new.start
