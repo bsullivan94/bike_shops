@@ -31,7 +31,7 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
     public_suffix (4.0.5)
-    rake (12.3.2)
+    rake (12.3.3)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.7)
@@ -42,7 +42,7 @@ PLATFORMS
 DEPENDENCIES
   bike_shops!
   pry
-  rake (~> 12.0)
+  rake (~> 12.3)
 
 BUNDLED WITH
    2.1.4
