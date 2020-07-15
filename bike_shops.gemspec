@@ -26,4 +26,7 @@ Gem::Specification.new do |spec|
   #spec.bindir        = "exe"
   spec.executables   = ["bike_shops"]
   spec.require_paths = ["lib"]
+
+  spec.add_dependency "http"
+  spec.add_development_dependency "pry"
 end
