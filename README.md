@@ -1,8 +1,6 @@
 # BikeShops
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/bike_shops`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Greetings, and welcome to Brody's Bike Shops! This comprehensive CLI app will help you determine the best bike shops to visit using the location you provide. The data is derived from Yelp's own API, so you can rest assured that you will be viewing the top merchants along with contact info, reviews, and ratings!
 
 ## Installation
 
@@ -22,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+The CLI will ask you for your location. You may enter zip codes, cities, or states, and the app will return a list of shops using a Yelp API. The list will automatically be displayed as the top 20 rated and reviewed shops in the given area. Be sure follow the prompts to navigate through the app. Cheers!
 
 ## Development
 

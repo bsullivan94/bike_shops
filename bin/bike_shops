@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require "bundler/setup"
-require "pry"
+#require "pry"
 require_relative "../lib/bike_shops"
 
 BikeShops::CLI.new.start
