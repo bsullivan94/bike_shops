@@ -64,3 +64,9 @@ module BikeShops
     end
   end
 end
+
+# CLI Class Responsibilities 
+  # Interacts with the User 
+  # Prints Out Prompts 
+  # Takes Input 
+  # Decides What To Do With Data 

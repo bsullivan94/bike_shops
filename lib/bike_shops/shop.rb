@@ -1,9 +1,18 @@
 module BikeShops
   class Shop
+    attr_accessor :id, :name, :review_count, :rating, :location, :price, :phone # define attributes for mass assignment from hash
     
     @@all = []
 
-    def self.all
+    def initialize(attributes={})
+      attributes.each do |attribute_name, attribute_value|
+        if self.respond_to?("#{attribute_name}=") #is it there?
+          self.send("#{attribute_name}=", attribute_value)
+        end
+      end
+    end
+
+    def self.all #provide access to the @@all array ('getter')
       @@all
     end
 
@@ -11,8 +20,9 @@ module BikeShops
       self.all[number.to_i - 1]
     end
 
-    def self.load_by_location(location)
-      location_based_search_results = API.yelp_search("shop", location)
+    def self.load_by_location(location) 
+      location_based_search_results = API.yelp_search("bike shop", location)
+      #now call create to instantiate and load objects into @@all, overwrites contents for each location entered by user
       @@all = self.create_from_search_results(location_based_search_results)
     end
 
@@ -22,52 +32,21 @@ module BikeShops
       end
     end
 
-
-    attr_accessor :id, :name, :review_count, :rating, :location, :price, :phone
-
-    def initialize(attributes={})
-      attributes.each do |attribute_name, attribute_value|
-        if self.respond_to?("#{attribute_name}=")
-          self.send("#{attribute_name}=", attribute_value)
-        end
-      end
-    end
-
     def details
       <<-HEREDOC
-    
-#{self.price} #{self.name} has #{self.review_count} reviews with an average rating of #{self.rating}
-#{self.address}
-#{self.phone}
-
-Reviews:
-
-#{self.display_reviews}
-      
+      #{self.name} 
+      has a rating of #{self.rating}
+      #{self.location["address1"]} 
+      #{self.location["city"]} #{self.location["state"]} #{self.location["zip_code"]}
+      Phone: #{self.phone}
+   
       HEREDOC
-    end
-
-    def address
-      location["display_address"].join("\n")
-    end
-
-    def reviews 
-      @reviews ||= API.get_reviews(self.id)
-    end
-
-    def display_reviews
-      self.reviews.map do |review|
-        [
-          "Reviewer: #{review['user']['name']}",
-          "Rating: #{review['rating']}",
-          DateTime.parse(review['time_created']).strftime("%B %e, %Y %l:%M %p"),
-          review['text'],
-          "Keep Reading: #{review['url']}",
-          ""
-        ].join("\n")
-      end.join("\n")
     end
   end
 end
 
-
+#Shop Class Responsibilities 
+  # Describes The Objects That Are Created, Stored and Accessed 
+    # What Are Their Attributes?
+    # How Do We Display Them In A List? 
+    # How Do We Display Details About Them?     
