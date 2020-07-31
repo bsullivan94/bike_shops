@@ -25,6 +25,7 @@ module BikeShops
       while @input.downcase != "exit" && @input.downcase != "back" #conditionals that are used to either exit the program or go back to the main menu of the app
         if @input.downcase == "list"
           list_bike_shops
+          Shop.sort_by_rating.collect { |shop| "#{shop.rating}" }
         elsif valid? #conditional that is checking the validity of input and displays the error message if it is not valid
           shop = Shop.find_by_number(@input)
           puts details(shop)
