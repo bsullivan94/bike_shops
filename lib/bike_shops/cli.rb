@@ -1,12 +1,12 @@
 module BikeShops
-  class CLI
+  class CLI #class that runs the CLI. Outputs options to the screen and receives input from the user to help access other classes 
     def initialize
-      @input = ""
+      @input = "" #initializes all input instances to an empty string
     end
 
-    def start 
+    def start #instance method that starts the program and calls other instance methods used to access info for the app
       puts "Welcome to Brody's Bike Shops!"
-      while @input != "exit"
+      while @input != "exit" #conditional based on the validity of the choice returned by the ask_for_choice method
         set_location
         start_bike_shop_picker
       end
@@ -22,16 +22,30 @@ module BikeShops
     def start_bike_shop_picker
       list_bike_shops
       ask_for_choice
-      while @input != "exit" && @input != "back"
-        if @input == "list"
+      while @input.downcase != "exit" && @input.downcase != "back" #conditionals that are used to either exit the program or go back to the main menu of the app
+        if @input.downcase == "list"
           list_bike_shops
-        elsif valid?
-          puts Shop.find_by_number(@input).details
+        elsif valid? #conditional that is checking the validity of input and displays the error message if it is not valid
+          shop = Shop.find_by_number(@input)
+          puts details(shop)
+          Shop.sort_by_rating.collect { |shop| "#{shop.rating}" }
         else
           puts "Whoops! I didn't quite get that, try again?"
         end
         ask_for_choice
       end
+
+    end
+
+    def details(shop)
+      <<-HEREDOC 
+      #{shop.name} 
+      has a rating of #{shop.rating}
+      #{shop.location["address1"]} 
+      #{shop.location["city"]} #{shop.location["state"]} #{shop.location["zip_code"]}
+      Phone: #{shop.phone}
+   
+      HEREDOC
     end
 
 
@@ -41,7 +55,7 @@ module BikeShops
       end
     end
 
-    def ask_for_choice
+    def ask_for_choice #instance method that is asking the user to input the bike shop number in order to see more info about it
       list_choices
       @input = gets.strip
     end
@@ -55,7 +69,8 @@ module BikeShops
       ]
     end
 
-    def valid?
+    def valid? #instance method that returns as truthy or falsey based on whether the input that the user 
+      #has chosen is a valid bike shop number in the list of bike shop objects
       @input.to_i.between?(1, Shop.all.length)
     end
 

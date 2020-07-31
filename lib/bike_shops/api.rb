@@ -1,13 +1,13 @@
 module BikeShops
-  class API
+  class API #class that is accessing the api from the URL
     API_HOST =  "https://api.yelp.com"
     SEARCH_PATH = "/v3/businesses/search"
-    BUSINESS_PATH = "/v3/businesses/" # trailing / because we append the business id to the path
+    BUSINESS_PATH = "/v3/businesses/" #trailing / because we append the business id to the path
 
     def self.api_key
-      # this method will retrieve the API KEY stored in a file called .yelp_api_key in our root 
-          # directory. If the file doesn't exist it will ask us to enter an API key to the terminal 
-          # and store our input in that file so that it will be read next time we run the program.
+      #class method that will retrieve the API KEY stored in a file called .yelp_api_key in our root 
+          #directory. If the file doesn't exist it will ask us to enter an API key to the terminal 
+          #and store our input in that file so that it will be read the next time we run the program.
       begin
         @@key = File.open(File.expand_path("~/.yelp-api-key")).read.strip
       rescue 
@@ -20,9 +20,9 @@ module BikeShops
       @@key
     end
 
-    def self.yelp_search(term, location)
+    def self.yelp_search(term, location) #class method that is taking input parameters to get the specific info from URL
       url = "#{API_HOST}#{SEARCH_PATH}"
-      params = {
+      params = { #optional parameters that are used to access specific info within the api
         term: term,
         location: location
       }
